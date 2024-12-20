@@ -1,9 +1,11 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"net/http"
 	"net/url"
+	"strings"
 	"sync"
 
 	"golang.org/x/net/html"
@@ -61,12 +63,8 @@ func extractLinks(doc *html.Node, baseURL *url.URL) map[string]string {
 
 func main() {
 	var wg sync.WaitGroup
-	// URLs to scrape
-	urls := []string{
-		"https://google.com",
-		"https://old.reddit.com/",
-		"https://timevko.website",
-	}
+	urlList := flag.String("urls", "https://google.com", "Comma separated list of URL's to crawl")
+	flag.Parse()
 	urlChan := make(chan string)
 	results := make(chan map[string]string)
 
@@ -74,7 +72,7 @@ func main() {
 		wg.Add(1)
 		go worker(i, urlChan, results, &wg)
 	}
-	for _, url := range urls {
+	for _, url := range strings.Split(*urlList, ",") {
 		urlChan <- url
 	}
 		close(urlChan)

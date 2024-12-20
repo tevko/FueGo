@@ -29,8 +29,7 @@ A concurrent web scraper that extracts links from a list of URLs.
 
 1. Make sure you have Go installed on your system.
 2. Save the code as a `.go` file (e.g., `scraper.go`).
-3. edit the list of URLs to fetch
-4. Run the program using `go run scraper.go`.
+3. Run the program using `go run scraper.go --urls="https://example.com,https://example2.com, ...etc"`.
 
 **Dependencies:**
 
@@ -38,19 +37,12 @@ A concurrent web scraper that extracts links from a list of URLs.
 
 **Example Usage:**
 
-The program currently scrapes the following URLs:
-
-* "https://google.com"
-* "https://old.reddit.com/"
-* "https://timevko.website"
-
-You can modify the `urls` slice in the `main` function to scrape different websites.
+`go run fue.go --urls="https://timevko.website,https://old.reddit.com"`
 
 **Potential Improvements:**
 
 * **Error Handling:**  More robust error handling for network requests and HTML parsing.
 * **Politeness:** Implement delays between requests to avoid overloading the target servers.
 * **Data Storage:**  Store the extracted links in a file or database.
-* **Command-line Arguments:** Allow users to specify the URLs and other options through command-line arguments.
 * **Deduplication:**  Remove duplicate links from the output.
 * **Advanced Extraction:** Use CSS selectors (e.g., with the `goquery` library) for more specific link extraction.
